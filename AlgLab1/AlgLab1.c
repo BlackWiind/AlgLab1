@@ -1,11 +1,10 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
 #include <locale.h>
 
-struct tnode
+struct tnode                                                                 //дерево
 {
 	int data;
 	struct tnode* left;
@@ -14,21 +13,16 @@ struct tnode
 
 typedef struct tnode Tree;
 
-
-int cmp(const void* a, const void* b);
-int tsize(Tree* t);
-int theight(Tree* t);
-int tmiddleh(Tree* t, int l);
-int csumm(Tree* t);
-void ltr(Tree* t);
-void search(Tree* t, int x);
-Tree* isdp(int l, int r, int* A);
-void sdp(Tree** t, int d);
-bool istree(Tree* t);
-
-
-
-
+int cmp(const void* a, const void* b);                                       //Для упорядочивания массива
+int tsize(Tree* t);                                                          //Размер дерева
+int theight(Tree* t);                                                        //Высота дерева
+int tmiddleh(Tree* t, int l);                                                //Средняя высота дерева
+int csumm(Tree* t);                                                          //Контрольная сумма
+void ltr(Tree* t);                                                           //Обход слева направо
+void search(Tree* t, int x);                                                 //Поиск по ключу
+Tree* isdp(int l, int r, int* A);                                            //Идеально сбалансираванное дерево
+void sdp(Tree** t, int d);                                                   //Случайное дерево поиска
+bool istree(Tree* t);                                                        //Проверяет является ли дерево двоичным деревом поиска
 
 Tree *root1 = NULL; *root2 = NULL;
 
@@ -55,8 +49,7 @@ int main() {
 	root1 = isdp(0, n - 1, A);
 	printf("Идеально сбалансированное дерево поиска:\n");
 	ltr(root1);
-	printf("\n");
-	
+	printf("\n");	
 	printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
 	printf("+++++++++++|Размер|Высота|Средняя высота|контр. сумма|++++++++++++++++++++++++++++++++\n");
 	printf("+ИСДП %10d %7d %10.2f %15d\n",tsize(root1),theight(root1),(double)tmiddleh(root1,1)/tsize(root1), csumm(root1));
@@ -158,9 +151,6 @@ void sdp(Tree** t, int d) {
 	}
 }
 
-
-
-//Проверяет является ли дерево двоичным деревом поиска
 bool istree(Tree* t) {
 	if (t != NULL && ((t->left != NULL && (t->data <= t->left->data || istree(t->left))) || (t->right != NULL && (t->data >= t->right->data || !istree(t->right))))) {
 		return false;
