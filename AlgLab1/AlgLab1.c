@@ -24,7 +24,6 @@ void ltr(Tree* t);
 void search(Tree* t, int x);
 Tree* isdp(int l, int r, int* A);
 void sdp(Tree** t, int d);
-void shuffle(int* arr, int N);
 bool istree(Tree* t);
 
 
@@ -38,15 +37,15 @@ int n;
 
 int main() {
 	setlocale(LC_ALL, "rus");
+	srand(time(NULL));
 	printf("Введите количество вершин в дереве:\n");
 	scanf("%d", &n);
 	system("cls");
 
 	A = (int*)malloc(sizeof(int) * n);
 	for (int i = 0; i < n; i++) {
-		A[i] = i;
-	}
-	shuffle(A, n);	
+		A[i] = rand() % 1000;
+	}		
 	for (int i = 0; i < n; i++) {
 		sdp(&root2, A[i]);
 	}
@@ -159,22 +158,7 @@ void sdp(Tree** t, int d) {
 	}
 }
 
-// arr - массив для перестановки, N - количество элементов в массиве
-void shuffle(int* arr, int N)
-{
-	// инициализация генератора случайных чисел
-	srand(time(NULL));
 
-	// реализация алгоритма перестановки
-	for (int i = N - 1; i >= 1; i--)
-	{
-		int j = rand() % (i + 1);
-
-		int tmp = arr[j];
-		arr[j] = arr[i];
-		arr[i] = tmp;
-	}
-}
 
 //Проверяет является ли дерево двоичным деревом поиска
 bool istree(Tree* t) {
@@ -187,9 +171,3 @@ bool istree(Tree* t) {
 int cmp(const void* a, const void* b) {
 	return *(int*)a - *(int*)b;
 }
-
-/*Вызов sdp:
-for(i = 0; i < n; i++)
-	{
-		AddTree(&root, mass[i]);
-	}*/
